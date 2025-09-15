@@ -8,6 +8,11 @@ class PracticePage:
         self.suggestion = page.locator("#autocomplete")
         self.option = page.locator("#dropdown-class-example option")
         self.checkbox = page.locator("input[type='checkbox']")
+        self.window_button = page.locator("#openwindow")
+        self.new_tab_button = page.locator("#opentab")
+        self.name_field = page.locator("#name")
+        self.alert_button = page.locator("#alertbtn")
+        self.confirm_button = page.locator("#confirmbtn")
         
         
     def radio_button_example(self):
@@ -74,6 +79,7 @@ class PracticePage:
                 print(f"   ✅ Selected: {selected_value}")
                 
     def checkbox_example(self):
+        print("\n")
         checkboxes = self.checkbox
         count = checkboxes.count()
         print("Checkbox found:",count)
@@ -82,3 +88,55 @@ class PracticePage:
             checkbox = checkboxes.nth(i)
             checkbox.check()
             print(f"Checked: {checkbox.get_attribute('value')}")
+            
+    def switch_window_example(self):
+        #Switch Window Example
+        print("\n")
+        open_window_button = self.window_button
+    
+        with self.page.context.expect_page() as popup_info:
+            open_window_button.click()
+        new_window = popup_info.value
+        new_window.wait_for_load_state()
+        new_window.evaluate("""
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior:'smooth'
+            })
+        """)
+        
+        print("New Window URL:", new_window.url)
+        
+    def switch_tab_example(self):
+        #Switch Tab Example
+        print("\n")
+        open_tab_button = self.new_tab_button
+        
+        with self.page.expect_popup() as popup_info:
+            open_tab_button.click()
+
+        new_tab  = popup_info.value
+        new_tab.wait_for_load_state()
+        print("New Tab URL:", new_tab.url)
+        
+    def switch_to_alert_example(self):
+        #Switch to alert example
+        print("\n")
+        def handle_prompt(dialog):
+            print(f"Prompt detected!")
+            print(f"Prompt message: {dialog.message}")
+            print(f"Dialog type: {dialog.type}")
+            dialog.accept()
+            
+        name_field = self.name_field
+        alert_button = self.alert_button 
+        confirm_button = self.confirm_button 
+
+        self.page.on("dialog", handle_prompt)
+                
+        name_field.fill("AlertButton")
+        alert_button.click()
+        print("\n")
+        name_field.fill("ConfirmButton")
+        confirm_button.click()
+        
