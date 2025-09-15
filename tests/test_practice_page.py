@@ -6,6 +6,6 @@ def test_practice_page(page: Page):
     run.radio_button_example()
     run.suggestion_class_example()
     run.dropdown_example()
-    
+    run.checkbox_example()
     
     

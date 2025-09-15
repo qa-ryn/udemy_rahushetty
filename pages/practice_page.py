@@ -7,6 +7,8 @@ class PracticePage:
         self.radio = page.locator("input[type='radio']")
         self.suggestion = page.locator("#autocomplete")
         self.option = page.locator("#dropdown-class-example option")
+        self.checkbox = page.locator("input[type='checkbox']")
+        
         
     def radio_button_example(self):
         radio_buttons = self.radio
@@ -27,8 +29,6 @@ class PracticePage:
             #print label text
             print(label_text)
 
-            
-        
     def suggestion_class_example(self):
         #suggestion Class
         print("\n")
@@ -49,7 +49,6 @@ class PracticePage:
         print("Suggestions:")
         for idx, item in enumerate(suggestion_list, start=1):
             print(f" {idx}) {item}")
-            
             
     def dropdown_example(self):
         #dropdown example 
@@ -74,6 +73,12 @@ class PracticePage:
                 selected_value = self.page.locator("#dropdown-class-example").input_value()
                 print(f"   ✅ Selected: {selected_value}")
                 
+    def checkbox_example(self):
+        checkboxes = self.checkbox
+        count = checkboxes.count()
+        print("Checkbox found:",count)
         
-
-    
+        for i in range(count):
+            checkbox = checkboxes.nth(i)
+            checkbox.check()
+            print(f"Checked: {checkbox.get_attribute('value')}")
