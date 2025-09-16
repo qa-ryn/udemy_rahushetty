@@ -140,3 +140,72 @@ class PracticePage:
         name_field.fill("ConfirmButton")
         confirm_button.click()
         
+    def element_display_example(self):
+        #Element display example
+        print("\n")
+        hide_button = self.page.locator("#hide-textbox")
+        show_button = self.page.locator("#show-textbox")
+        input_field = self.page.locator("#displayed-text")
+        value = input_field.get_attribute('value')
+
+        input_field.fill("Teste123456")
+        print(value)
+        
+        for i in range(5):
+            print(f"Toogle round {i+1}")
+            hide_button.click()
+            show_button.click()
+    
+    def web_table_example(self):
+        #web table example
+        print("\n")
+        table = self.page.locator("table[name='courses']")
+        rows = table.locator("tr")
+        
+        row_count = rows.count()
+        print(f"Total rows: {row_count}")
+        
+        header_cells = rows.nth(0).locator("th")
+        headers = header_cells.count()
+        headers_data = []
+        
+        for i in range(headers):
+            text = header_cells.nth(i).text_content().strip()
+            headers_data.append(text)
+        print(f"Headers: {headers_data}")
+
+        for i in range(1, row_count):
+            cells = rows.nth(i).locator("td")
+            cell_count = cells.count()
+            row_data = []
+            for j in range(cell_count):
+                text = cells.nth(j).text_content().strip()
+                row_data.append(text)
+            print(f"Row {i}: {row_data}")
+            
+    def web_table_fixed_header_example(self):
+        #Web table fixed header
+        table = self.page.locator("div.tableFixHead >> table#product")
+        rows = table.locator("tr")
+        
+        row_count = rows.count()
+        print(f"Total rows: {row_count}")
+        
+        header_cells = rows.nth(0).locator("th")
+        headers = header_cells.count()
+        headers_data = []
+            
+        for i in range(headers):
+            text = header_cells.nth(i).text_content().strip()
+            headers_data.append(text)
+        print(f"Headers: {headers_data}")
+
+        for i in range(1, row_count):
+            cells = rows.nth(i).locator("td")
+            cell_count = cells.count()
+            row_data = []
+            for j in range(cell_count):
+                text = cells.nth(j).text_content().strip()
+                row_data.append(text)
+            print(f"Row {i}: {row_data}")
+            

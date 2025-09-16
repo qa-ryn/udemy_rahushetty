@@ -10,4 +10,7 @@ def test_practice_page(page: Page):
     run.switch_window_example()
     run.switch_tab_example()
     run.switch_to_alert_example()
+    run.element_display_example()
+    run.web_table_example()
+    run.web_table_fixed_header_example()
     
