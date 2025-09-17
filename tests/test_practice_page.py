@@ -13,4 +13,5 @@ def test_practice_page(page: Page):
     run.element_display_example()
     run.web_table_example()
     run.web_table_fixed_header_example()
-    
+    run.mouser_hover_example()
+    run.iframe_example()

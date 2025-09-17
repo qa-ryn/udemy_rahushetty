@@ -117,6 +117,7 @@ class PracticePage:
 
         new_tab  = popup_info.value
         new_tab.wait_for_load_state()
+        new_tab.close()
         print("New Tab URL:", new_tab.url)
         
     def switch_to_alert_example(self):
@@ -185,6 +186,7 @@ class PracticePage:
             
     def web_table_fixed_header_example(self):
         #Web table fixed header
+        print("\n")
         table = self.page.locator("div.tableFixHead >> table#product")
         rows = table.locator("tr")
         
@@ -209,3 +211,30 @@ class PracticePage:
                 row_data.append(text)
             print(f"Row {i}: {row_data}")
             
+    def mouser_hover_example(self):
+        #Mouse Hover Example
+        print("\n")
+        mouse_hover_btn = self.page.locator("#mousehover")
+        top_link = self.page.locator("a[href='#top']")
+        reload_link = self.page.locator("a[href='']")
+        mouse_hover_btn.scroll_into_view_if_needed()
+        
+        print(mouse_hover_btn.text_content())
+        
+        mouse_hover_btn.hover()
+        reload_text = reload_link.text_content()
+        reload_link.click()
+        print(f"Clicking: {reload_text}")
+        
+        mouse_hover_btn.hover()
+        top_text = top_link.text_content()
+        top_link.click()
+        print(f"Clicking: {top_text}")
+    
+    def iframe_example(self):
+        #iframe example
+        print("\n")
+        self.page.locator("iframe#courses-iframe").scroll_into_view_if_needed()
+        iframe = self.page.frame_locator("iframe#courses-iframe")
+        iframe.locator("a[href='/about-my-mission']").scroll_into_view_if_needed()
+        
