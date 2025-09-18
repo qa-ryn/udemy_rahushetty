@@ -1,10 +1,10 @@
 import pytest 
 from playwright.sync_api import sync_playwright
 
-@pytest.fixture(scope="session")
+#@pytest.fixture(params=["chromium", "firefox", "webkit"], scope="session")
 def browser():
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False, args=["--ignore-certificate-errors"], slow_mo=500)
+        browser = p.launch(headless=False, args=["--ignore-certificate-errors"], slow_mo=500)
         yield browser
         browser.close()
 
